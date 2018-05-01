@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HomePage</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="../css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+
+    <link th:href="@{/css/style01.css}" rel="stylesheet" media="screen"/>
+</head>
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50">
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#myPage">Logo</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/index">HOME</a></li>
+                <li><a href="/season">SEASON</a></li>
+                <li><a href="/pelanggan">PELANGGAN</a></li>
+                <li><a href="/jenisKamar">JENIS KAMAR</a></li>
+                <li><a href="/fasilitas">FASILITAS</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">RESERVASI
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/kamar">KAMAR</a></li>
+                        <li><a href="/reservasiKamar">RESERVASI KAMAR</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">MORE
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">PELANGGAN</a></li>
+                        <li><a href="#">LAPORAN 1</a></li>
+                        <li><a href="#">LAPORAN 2</a></li>
+                    </ul>
+                </li>
+                <li><a href="/loginpage">LOGIN</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <legend><h2 style="text-align:center;">REGISTRASI PELANGGAN </h2></legend>
+    <form th:object="${season}" class="form-horizontal" th:action="@{/tambahSeason}" method="post">
+
+        <input type="hidden" th:field="*{idSeason}">
+        <input type="hidden" th:field="*{statusSeason}">
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="namaSeason">Nama Season:</label>
+            <div class="col-sm-4">
+                <input th:field="*{namaSeason}" type="text" class="form-control"
+                       id="namaSeason" maxlength="30" placeholder="" name="namaSeason" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="persentase">Persentase :</label>
+            <div class="col-sm-4">
+                <input  th:field="*{persentase}" maxlength="40" type="text" class="form-control" id="persentase" name="persentase" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="jenisPersentase">Jenis Persentase :</label>
+            <div class="col-sm-4">
+                <input th:field="*{jenisPersentase}" type="radio" name="jenisPersentase" value="Naik" id="jenisPersentasi"> Naik harga<br>
+                <input th:field="*{jenisPersentase}" type="radio" name="jenisPersentase" value="Turun" id="jenisPersentasi"> Turun harga
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="status" class="col-sm-4 control-label">Cabang</label>
+            <div class="col-sm-4">
+                <select th:field="*{seasonCabangMap.idCabang}"  class=" input-group form-control" id="status" >
+                    <option th:each="cabang : ${cabang}" th:value="${cabang.idCabang}" th:text="${cabang.namaKotaCabang}"></option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-7 control-label">Date Picking</label>
+            <div class="col-md-7" data-date-format="yyyy-mm-dd">
+                <div class="col-sm-7">
+                    <input th:field="*{startDate}" type="date" class="form-control" required data-date-format="yyyy-mm-dd"/>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-7 control-label">Date Picking</label>
+            <div class="col-md-7" data-date-format="yyyy-mm-dd">
+                <div class="col-sm-7">
+                    <input th:field="*{endDate}" type="date" class="form-control" required data-date-format="yyyy-mm-dd"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-10">
+                <button type="submit" class="btn btn-default">Simpan</button>
+            </div>
+        </div>
+
+    </form>
+</div>
+<script type="text/javascript" src="./jquery/jquery-1.8.3.min.js" charset="UTF-8"></script>
+<script type="text/javascript" src="./bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="../js/locales/bootstrap-datetimepicker.id.js" charset="UTF-8"></script>
+<script type="text/javascript">
+    $('.form_datetime').datetimepicker({
+        //language:  'id',
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        forceParse: 0,
+        showMeridian: 1
+    });
+    $('.form_date').datetimepicker({
+        language:  'id',
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0
+    });
+    $('.form_time').datetimepicker({
+        language:  'id',
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 1,
+        minView: 0,
+        maxView: 1,
+        forceParse: 0
+    });
+</script>
+
+</body>
+</html>

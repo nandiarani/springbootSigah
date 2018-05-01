@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HomePage</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link th:href="@{/css/style01.css}" rel="stylesheet" media="screen"/>
+</head>
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50">
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#myPage">Logo</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/index">HOME</a></li>
+                <li><a href="/season">SEASON</a></li>
+                <li><a href="/pelanggan">PELANGGAN</a></li>
+                <li><a href="/jenisKamar">JENIS KAMAR</a></li>
+                <li><a href="/fasilitas">FASILITAS</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">RESERVASI
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/kamar">KAMAR</a></li>
+                        <li><a href="/reservasiKamar">RESERVASI KAMAR</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">MORE
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">PELANGGAN</a></li>
+                        <li><a href="#">LAPORAN 1</a></li>
+                        <li><a href="#">LAPORAN 2</a></li>
+                    </ul>
+                </li>
+                <li><a href="/loginpage">LOGIN</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="row">
+    <br><br>
+    <div class="col-md-10 col-md-offset-1">
+        <div class="panel panel-default panel-table">
+            <div class="panel-heading">
+                <div class="row">
+
+                    <div class="col col-xs-6">
+                        <h3 class="panel-title">Kamar Tersedia</h3>
+                    </div>
+
+                </div>
+            </div>
+            <div class="panel-body text-center">
+
+                <table class=" table-responsive text-center table table-hover table-bordered text-center" th:if="${not #lists.isEmpty(kamar)}" id="showTable" cellspacing="0" width="100%">
+
+                    <thead class="text-primary text-center">
+                    <th></th>
+                    <th>Nomor Kamar</th>
+                    <th>Lantai</th>
+                    <th>Merokok/Tidak</th>
+                    <th>Jenis Kamar</th>
+                    <th>Jenis Kasur</th>
+                    <th>Tarif</th>
+                    </thead>
+                    <tbody>
+                    <tr th:each="kamar: ${kamar}" th:onclick="'javascript:openKamarModal(\''+${kamar.idKamar}+'\');'">
+                        <td>
+                            <a class="btn btn-info btn-xs" th:href="${'/tambahPilihKamar/'+kamar.idKamar}">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </a>
+                        </td>
+                        <td th:text="${kamar.nomorKamar}"></td>
+                        <td th:text="${kamar.lantai}"></td>
+                        <td th:if="${kamar.statusMerokok==0}" th:text="Tidak-Merokok"></td>
+                        <td th:if="${kamar.statusMerokok==1}" th:text="Merokok"></td>
+                        <td th:text="${kamar.kamarJenisKamarMap.namaJenisKamar}"></td>
+                        <td th:text="${kamar.kamarJenisKasurMap.namaJenisKasur}"></td>
+                        <td th:text="${kamar.kamarJenisKamarMap.tarifKamar}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="panel panel-default panel-table">
+            <div class="panel-heading">
+                <div class="row">
+
+                    <div class="col col-xs-6">
+                        <h3 class="panel-title">Kamar Dipilih</h3>
+                    </div>
+
+                </div>
+            </div>
+            <div class="panel-body text-center">
+
+                <table class=" table-responsive text-center table table-hover table-bordered text-center" th:if="${not #lists.isEmpty(kamarTerpilih)}" id="showTable2" cellspacing="0" width="100%">
+
+                    <thead class="text-primary text-center">
+                    <th></th>
+                    <th>Nomor Kamar</th>
+                    <th>Lantai</th>
+                    <th>Merokok/Tidak</th>
+                    <th>Jenis Kamar</th>
+                    <th>Jenis Kasur</th>
+                    <th>Tarif</th>
+                    </thead>
+                    <tbody>
+                    <tr th:each="kamars: ${kamarTerpilih}" ><!--th:onclick="'javascript:openKamarModal2(\''+${kamar.idKamar}+'\');'"-->
+                        <a class="btn btn-info btn-xs" th:href="${'/hapusPilihKamar/'+kamars.idKamar}">
+                        <span class="glyphicon glyphicon-minus">
+                        </span>
+                        </a>
+                        <td th:text="${kamars.nomorKamar}"></td>
+                        <td th:text="${kamars.lantai}"></td>
+                        <td th:if="${kamars.statusMerokok==0}" th:text="Tidak-Merokok"></td>
+                        <td th:if="${kamars.statusMerokok==1}" th:text="Merokok"></td>
+                        <td th:text="${kamars.kamarJenisKamarMap.namaJenisKamar}"></td>
+                        <td th:text="${kamars.kamarJenisKasurMap.namaJenisKasur}"></td>
+                        <td th:text="${kamars.kamarJenisKamarMap.tarifKamar}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="kamarModalHolder">
+</div>
+<div id="kamarModal" class="modal fade" role="dialog" th:each="kamar:${kamar}" th:fragment="modalContents">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">'
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Detil kamar</h4>
+            </div>
+            <div class="modal-body">
+                <table class=" table-responsive text-center table table-hover table-bordered text-center" th:if="${not #lists.isEmpty(kamar)}" id="showTable" cellspacing="0" width="100%">
+                    <tr>
+                        <td>
+                            Nomor Kamar
+                        </td>
+                        <td th:text="${kamar.nomorKamar}"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Lantai
+                        </td>
+                        <td th:text="${kamar.lantai}"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Status Merokok
+                        </td>
+                        <td th:if="${kamar.statusMerokok==0}" th:text="Tidak-Merokok"></td>
+                        <td th:if="${kamar.statusMerokok==1}" th:text="Merokok"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Kapasitas
+                        </td>
+                        <td th:text="${kamar.kamarJenisKamarMap.kapasitas}"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Luas
+                        </td>
+                        <td th:text="${kamar.kamarJenisKamarMap.luas}"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Tipe kamar
+                        </td>
+                        <td th:text="${kamar.kamarJenisKamarMap.namaJenisKamar}"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Tipe kasur
+                        </td>
+                        <td th:text="${kamar.kamarJenisKasurMap.namaJenisKasur}"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Fasilitas
+                        </td>
+                        <td th:text="${kamar.kamarJenisKamarMap.fasilitasKamar}"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Tarif
+                        </td>
+                        <td th:text="${kamar.kamarJenisKamarMap.tarifKamar}"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Gambar
+                        </td>
+                        <td>Coming soon</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function openKamarModal(id){
+        $.ajax({
+           url:"/kamar/"+id,
+           success: function(data) {
+               $("#kamarModalHolder").html(data);
+               $("#kamarModal").modal("show");
+           }
+        });
+    }
+</script>
+</body>
+</html>
