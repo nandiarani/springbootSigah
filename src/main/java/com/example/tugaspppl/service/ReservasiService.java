@@ -56,7 +56,7 @@ public class ReservasiService {
         System.out.println(r.getTanggalCheckOut());
         reservasiDao.save(r);
         System.out.println("done here 1");
-        model.addAttribute("kamar",reservasiDao.cariKamarTersedia(tempReservasi));
+        model.addAttribute("kamars",reservasiDao.cariKamarTersedia(tempReservasi));
         System.out.println("done here 2");
         return model;
     }
@@ -71,7 +71,6 @@ public class ReservasiService {
     }
     public void tambahPilihKamar(int idKamar,ArrayList<Kamar> kamars,ArrayList<Kamar> kamarTerpilih){
         Kamar kamar;
-        int indexKamars=-1;
         System.out.println("masuk service tambah pilih kamar");
         kamar=kamarDao.findByIdKamar(idKamar);
 
@@ -86,8 +85,13 @@ public class ReservasiService {
         System.out.println("masukin kamar ke kamar terpilih");
 
         ///get index pake perulangan
+        int indexKamars=-1;
+        System.out.println(kamars.size());
         for(int i=0;i<kamars.size();i++){
+            System.out.println("test");
+            System.out.println(kamars.get(i).getIdKamarFormated());
             if(kamars.get(i).getIdKamar()==kamar.getIdKamar()){
+                System.out.println("dapet");
                 indexKamars=i;
                 break;
             }

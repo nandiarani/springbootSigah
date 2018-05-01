@@ -71,7 +71,7 @@
             </div>
             <div class="panel-body text-center">
 
-                <table class=" table-responsive text-center table table-hover table-bordered text-center" th:if="${not #lists.isEmpty(kamar)}" id="showTable" cellspacing="0" width="100%">
+                <table class=" table-responsive text-center table table-hover table-bordered text-center" th:if="${not #lists.isEmpty(kamars)}" id="showTable" cellspacing="0" width="100%">
 
                     <thead class="text-primary text-center">
                     <th></th>
@@ -83,19 +83,19 @@
                     <th>Tarif</th>
                     </thead>
                     <tbody>
-                    <tr th:each="kamar: ${kamar}" th:onclick="'javascript:openKamarModal(\''+${kamar.idKamar}+'\');'">
+                    <tr th:each="kamars: ${kamars}" th:onclick="'javascript:openKamarModal(\''+${kamars.idKamar}+'\');'">
                         <td>
-                            <a class="btn btn-info btn-xs" th:href="${'/tambahPilihKamar/'+kamar.idKamar}">
+                            <a class="btn btn-info btn-xs" th:href="${'/tambahPilihKamar/'+kamars.idKamar}">
                                 <span class="glyphicon glyphicon-plus"></span>
                             </a>
                         </td>
-                        <td th:text="${kamar.nomorKamar}"></td>
-                        <td th:text="${kamar.lantai}"></td>
-                        <td th:if="${kamar.statusMerokok==0}" th:text="Tidak-Merokok"></td>
-                        <td th:if="${kamar.statusMerokok==1}" th:text="Merokok"></td>
-                        <td th:text="${kamar.kamarJenisKamarMap.namaJenisKamar}"></td>
-                        <td th:text="${kamar.kamarJenisKasurMap.namaJenisKasur}"></td>
-                        <td th:text="${kamar.kamarJenisKamarMap.tarifKamar}"></td>
+                        <td th:text="${kamars.nomorKamar}"></td>
+                        <td th:text="${kamars.lantai}"></td>
+                        <td th:if="${kamars.statusMerokok==0}" th:text="Tidak-Merokok"></td>
+                        <td th:if="${kamars.statusMerokok==1}" th:text="Merokok"></td>
+                        <td th:text="${kamars.kamarJenisKamarMap.namaJenisKamar}"></td>
+                        <td th:text="${kamars.kamarJenisKasurMap.namaJenisKasur}"></td>
+                        <td th:text="${kamars.kamarJenisKamarMap.tarifKamar}"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -125,18 +125,18 @@
                     <th>Tarif</th>
                     </thead>
                     <tbody>
-                    <tr th:each="kamars: ${kamarTerpilih}" ><!--th:onclick="'javascript:openKamarModal2(\''+${kamar.idKamar}+'\');'"-->
-                        <a class="btn btn-info btn-xs" th:href="${'/hapusPilihKamar/'+kamars.idKamar}">
+                    <tr th:each="kamarTerpilih: ${kamarTerpilih}" ><!--th:onclick="'javascript:openKamarModal2(\''+${kamar.idKamar}+'\');'"-->
+                        <a class="btn btn-info btn-xs" th:href="${'/hapusPilihKamar/'+kamarTerpilih.idKamar}">
                         <span class="glyphicon glyphicon-minus">
                         </span>
                         </a>
-                        <td th:text="${kamars.nomorKamar}"></td>
-                        <td th:text="${kamars.lantai}"></td>
-                        <td th:if="${kamars.statusMerokok==0}" th:text="Tidak-Merokok"></td>
-                        <td th:if="${kamars.statusMerokok==1}" th:text="Merokok"></td>
-                        <td th:text="${kamars.kamarJenisKamarMap.namaJenisKamar}"></td>
-                        <td th:text="${kamars.kamarJenisKasurMap.namaJenisKasur}"></td>
-                        <td th:text="${kamars.kamarJenisKamarMap.tarifKamar}"></td>
+                        <td th:text="${kamarTerpilih.nomorKamar}"></td>
+                        <td th:text="${kamarTerpilih.lantai}"></td>
+                        <td th:if="${kamarTerpilih.statusMerokok==0}" th:text="Tidak-Merokok"></td>
+                        <td th:if="${kamarTerpilih.statusMerokok==1}" th:text="Merokok"></td>
+                        <td th:text="${kamarTerpilih.kamarJenisKamarMap.namaJenisKamar}"></td>
+                        <td th:text="${kamarTerpilih.kamarJenisKasurMap.namaJenisKasur}"></td>
+                        <td th:text="${kamarTerpilih.kamarJenisKamarMap.tarifKamar}"></td>
                     </tr>
                     </tbody>
                 </table>

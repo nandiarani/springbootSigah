@@ -44,14 +44,14 @@ public class ReservasiControl {
     }
 
     @RequestMapping(value = "/tambahPilihKamar/{id}")
-    public String tambahPilihKamar(@PathVariable int id, @ModelAttribute("kamar")ArrayList<Kamar> kamars, @ModelAttribute("kamarTerpilih")ArrayList<Kamar> kamarTerpilih){
+    public String tambahPilihKamar(@PathVariable int id, @ModelAttribute("kamars")ArrayList<Kamar> kamars, @ModelAttribute("kamarTerpilih")ArrayList<Kamar> kamarTerpilih){
         System.out.println("tes tambah pilih kamar");
         reservasiService.tambahPilihKamar(id,kamars,kamarTerpilih);
         System.out.println("tes tambah pilih kamar");
         return "/customer/pilihKamar";
     }
     @RequestMapping(value = "/hapusPilihKamar/{id}")
-    public String hapusPilihKamar(@PathVariable int id,@ModelAttribute("kamar")ArrayList<Kamar> kamars, @ModelAttribute("kamarTerpilih")ArrayList<Kamar> kamarTerpilih){
+    public String hapusPilihKamar(@PathVariable int id,@ModelAttribute("kamars")ArrayList<Kamar> kamars, @ModelAttribute("kamarTerpilih")ArrayList<Kamar> kamarTerpilih){
         System.out.println("tes hapus pilih kamar");
         reservasiService.hapusPilihKamar(id,kamars,kamarTerpilih);
         System.out.println("tes hapus pilih kamar");
